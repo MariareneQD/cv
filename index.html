@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>María René Quispe Condori · Técnico Superior en Informática Industrial</title>
+<title>Maria Rene Quispe Condori · Técnico Superior en Informática Industrial</title>
 <meta name="description" content="Currículum de María René Quispe Condori, Técnico Superior en Informática Industrial. El Alto, La Paz, Bolivia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
   <div class="hero-inner">
     <div class="hero-text">
       <p class="eyebrow">Hoja de vida</p>
-      <h1>María René<br>Quispe Condori</h1>
+      <h1>Maria Rene<br>Quispe Condori</h1>
       <p class="role">Técnico Superior en Informática Industrial</p>
       <p class="locale">El Alto · La Paz · Bolivia</p>
       <div class="hero-actions">
@@ -28,7 +28,7 @@
     </div>
     <div class="hero-photo">
       <div class="photo-frame">
-        <img src="assets/foto.jpg" alt="Retrato de María René Quispe Condori" width="640" height="640">
+        <img src="assets/foto.jpg" alt="Retrato de Maria Rene Quispe Condori" width="640" height="640">
         <span class="corner tl"></span>
         <span class="corner tr"></span>
         <span class="corner bl"></span>
@@ -38,6 +38,13 @@
     </div>
   </div>
 </header>
+
+<!-- BLOQUE TYPEWRITER -->
+<div class="typewriter-banner" aria-label="Mensaje destacado">
+  <div class="typewriter-inner">
+    <span class="tw-prompt">$ </span><span class="tw-text" id="tw-text"></span><span class="tw-cursor" id="tw-cursor">▮</span>
+  </div>
+</div>
 
 <main>
 
@@ -124,9 +131,97 @@
       <span>El Alto, La Paz, Bolivia</span>
     </div>
   </div>
-  <p class="fine-print">María René Quispe Condori — Técnico Superior en Informática Industrial</p>
+  <p class="fine-print">Maria Rene Quispe Condori — Técnico Superior en Informática Industrial</p>
 </footer>
 
 <script src="script.js"></script>
+
+<!-- TYPEWRITER SCRIPT — va al final para no bloquear el render -->
+<script>
+(function () {
+  const MSG = "Tengo el conocimiento técnico para entender el hardware industrial y la capacidad práctica de usar IA para optimizar sus datos y procesos";
+  const el  = document.getElementById("tw-text");
+  const cur = document.getElementById("tw-cursor");
+  if (!el || !cur) return;
+
+  let i = 0;
+  let typing = true;
+  let pauseTicks = 0;
+
+  function tick() {
+    if (pauseTicks > 0) {
+      pauseTicks--;
+      setTimeout(tick, 80);
+      return;
+    }
+
+    if (typing) {
+      if (i < MSG.length) {
+        el.textContent += MSG[i++];
+        setTimeout(tick, 38 + Math.random() * 30); // velocidad irregular = más realista
+      } else {
+        // pausa al terminar de escribir, luego borra
+        pauseTicks = 28;
+        typing = false;
+        setTimeout(tick, 80);
+      }
+    } else {
+      if (i > 0) {
+        el.textContent = MSG.slice(0, --i);
+        setTimeout(tick, 22);
+      } else {
+        // pausa antes de volver a escribir
+        pauseTicks = 18;
+        typing = true;
+        setTimeout(tick, 80);
+      }
+    }
+  }
+
+  // arranca con un pequeño delay para que no choque con el paint inicial
+  setTimeout(tick, 900);
+})();
+</script>
+
+<!-- ESTILOS DEL BLOQUE TYPEWRITER — se agregan aquí para no tocar style.css todavía -->
+<style>
+.typewriter-banner {
+  width: 100%;
+  background: #0a0a0a;          /* ajusta al color de fondo de tu web */
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 1.25rem 2rem;
+  overflow: hidden;
+}
+
+.typewriter-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  color: #00e5a0;               /* verde terminal — cambia al acento de tu paleta */
+  letter-spacing: 0.01em;
+  white-space: normal;          /* permite salto de línea en móvil */
+  word-break: break-word;
+}
+
+.tw-prompt {
+  color: #888;
+  user-select: none;
+}
+
+.tw-cursor {
+  display: inline-block;
+  color: #00e5a0;
+  animation: blink-cur 0.75s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes blink-cur {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+</style>
+
 </body>
 </html>
