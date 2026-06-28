@@ -406,3 +406,48 @@ img{ max-width:100%; display:block; }
 @media (prefers-reduced-motion: reduce){
   .t-item, .t-bar-fill{ transition: none !important; }
 }
+
+/* ============================================================
+   Typewriter banner
+   ============================================================ */
+.typewriter-banner{
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto clamp(20px, 4vh, 40px);
+  padding: 0 var(--pad);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.typewriter-banner > *{
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 10px 14px;
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+.tw-prompt{
+  color: var(--accent);
+  user-select: none;
+}
+
+.tw-cursor{
+  display: inline-block;
+  color: var(--accent-2);
+  animation: blink-cur 0.75s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes blink-cur{
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@media (max-width: 760px){
+  .typewriter-banner > *{ max-width: 100%; }
+}
