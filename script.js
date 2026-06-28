@@ -72,13 +72,12 @@ const MAX_HOURS = Math.max(...TIMELINE.filter(t => t.hours).map(t => t.hours));
 function barWidth(hours) {
   if (!hours) return 0;
   const ratio = Math.sqrt(hours / MAX_HOURS);
-  return Math.round(18 + ratio * 82); // 18%–100%, compressed scale so small entries stay visible
+  return Math.round(18 + ratio * 82);
 }
 
 function renderTimeline() {
   const list = document.getElementById("timeline-list");
   if (!list) return;
-
   const html = TIMELINE.map(item => {
     const w = barWidth(item.hours);
     const hoursLabel = item.hours ? `${item.hours} hrs` : "—";
@@ -97,19 +96,16 @@ function renderTimeline() {
       </li>
     `;
   }).join("");
-
   list.innerHTML = html;
 }
 
 function observeTimeline() {
   const items = document.querySelectorAll(".t-item");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   if (reduced || !("IntersectionObserver" in window)) {
     items.forEach(el => el.classList.add("is-visible"));
     return;
   }
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -118,13 +114,53 @@ function observeTimeline() {
       }
     });
   }, { threshold: 0.2 });
-
   items.forEach((el, i) => {
-    setTimeout(() => observer.observe(el), i * 0); // staggered visually by scroll, not timer
+    setTimeout(() => observer.observe(el), i * 0);
   });
+}
+
+function initTypewriter() {
+  const MSG = "Tengo el conocimiento técnico para entender el hardware industrial y la capacidad práctica de usar IA para optimizar sus datos y procesos";
+  const el  = document.getElementById("tw-text");
+  const cur = document.getElementById("tw-cursor");
+  if (!el || !cur) return;
+
+  let i = 0;
+  let typing = true;
+  let pauseTicks = 0;
+
+  function tick() {
+    if (pauseTicks > 0) {
+      pauseTicks--;
+      setTimeout(tick, 80);
+      return;
+    }
+    if (typing) {
+      if (i < MSG.length) {
+        el.textContent += MSG[i++];
+        setTimeout(tick, 38 + Math.random() * 30);
+      } else {
+        pauseTicks = 28;
+        typing = false;
+        setTimeout(tick, 80);
+      }
+    } else {
+      if (i > 0) {
+        el.textContent = MSG.slice(0, --i);
+        setTimeout(tick, 22);
+      } else {
+        pauseTicks = 18;
+        typing = true;
+        setTimeout(tick, 80);
+      }
+    }
+  }
+
+  setTimeout(tick, 900);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   renderTimeline();
   observeTimeline();
+  initTypewriter();
 });
