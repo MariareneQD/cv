@@ -393,35 +393,16 @@ img{ max-width:100%; display:block; }
   display: flex;
   justify-content: flex-end;
 }
-.typewriter-banner > span{
+.typewriter-banner > *{
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--ink-soft);
   letter-spacing: 0.03em;
-}
-.typewriter-banner{
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  letter-spacing: 0.03em;
-}
-.typewriter-banner > *:not(.tw-prompt):not(.tw-cursor){
-  display:inline;
-}
-/* wrap the whole thing */
-.typewriter-banner::before{
-  content: none;
-}
-/* box around the terminal line */
-.tw-box{
   border: 1px solid var(--line);
   background: var(--white);
   padding: 10px 14px;
-  max-width: 420px;
+  max-width: 360px;
   line-height: 1.5;
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  color: var(--ink-soft);
-  letter-spacing: 0.03em;
 }
 .tw-prompt{
   color: var(--accent);
@@ -478,7 +459,7 @@ img{ max-width:100%; display:block; }
   .edu-card{ grid-template-columns: 1fr; gap: 8px; }
   .footer-inner{ flex-direction: column; align-items: flex-start; }
   .contact-list{ text-align: left; }
-  .tw-box{ max-width: 100%; }
+  .typewriter-banner > *{ max-width: 100%; }
   .pdf-btn-wrap{ bottom: 16px; right: 16px; }
 }
 
@@ -492,7 +473,7 @@ img{ max-width:100%; display:block; }
    ============================================================ */
 @media print {
 
-  /* Ocultar elementos decorativos y de navegación */
+  /* Ocultar todo lo que no es contenido del CV */
   .grid-bg,
   .pdf-btn-wrap,
   .hero-actions,
@@ -500,7 +481,9 @@ img{ max-width:100%; display:block; }
   .photo-caption,
   .corner,
   .section-note,
-  .fine-print { display: none !important; }
+  .fine-print,
+  .footer h2,
+  .footer > .footer-inner > div:first-child .eyebrow { display: none !important; }
 
   * { box-shadow: none !important; transition: none !important; animation: none !important; }
 
@@ -519,34 +502,40 @@ img{ max-width:100%; display:block; }
 
   @page {
     size: A4 portrait;
-    margin: 16mm 18mm 14mm 18mm;
+    margin: 14mm 16mm 12mm 16mm;
   }
 
-  /* --- Hero --- */
+  /* --- Hero: nombre a la izquierda, foto a la derecha más grande --- */
   .hero {
     padding: 0 0 10pt;
     border-bottom: 2pt solid #14202B;
     max-width: 100%;
-    margin: 0 0 8pt;
+    margin: 0 0 10pt;
   }
   .hero-inner {
     display: grid;
-    grid-template-columns: 1fr 88pt;
-    gap: 14pt;
-    align-items: start;
+    grid-template-columns: 1fr 100pt;
+    gap: 16pt;
+    align-items: center;
+  }
+
+  /* Texto: nombre alineado a la izquierda */
+  .hero-text {
+    text-align: left;
   }
   .hero-text h1 {
-    font-size: 20pt;
+    font-size: 22pt;
     font-weight: 700;
     line-height: 1.1;
-    margin: 0 0 4pt;
+    margin: 0 0 5pt;
     color: #111;
+    text-align: left;
   }
   .hero-text .role {
-    font-size: 11pt;
+    font-size: 11.5pt;
     font-weight: 600;
     color: #1F6F8B;
-    margin: 0 0 2pt;
+    margin: 0 0 3pt;
   }
   .hero-text .locale {
     font-size: 9pt;
@@ -556,14 +545,24 @@ img{ max-width:100%; display:block; }
   }
   .hero-text .eyebrow { display: none; }
 
-  .hero-photo { display: flex !important; justify-content: flex-end; }
+  /* Foto más grande, a la derecha */
+  .hero-photo {
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: center;
+  }
   .photo-frame {
-    width: 84pt; height: 84pt;
+    width: 96pt;
+    height: 96pt;
     border: 1pt solid #bbb;
     padding: 3pt;
     background: #fff;
   }
-  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   /* --- Secciones generales --- */
   .section {
@@ -681,41 +680,44 @@ img{ max-width:100%; display:block; }
   .t-org { font-size: 8.5pt; color: #555; margin: 1pt 0 2pt; }
   .t-bar-track { display: none; }
 
-  /* Footer contacto */
+  /* --- Contacto: datos directos, sin "¿Conversamos?" --- */
   .footer {
     max-width: 100%;
     padding: 8pt 0 0;
     border-top: 0.75pt solid #C7D0D6;
-    margin-top: 4pt;
+    margin-top: 6pt;
     page-break-inside: avoid;
   }
   .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 8pt;
+    display: grid;
+    grid-template-columns: 1fr;   /* una sola columna: solo los datos */
     margin-bottom: 0;
   }
-  .footer h2 { font-size: 11pt; margin: 2pt 0 0; }
+  /* Ocultar el bloque izquierdo (eyebrow + h2 "¿Conversamos?") */
+  .footer-inner > div:first-child { display: none !important; }
+
+  /* Lista de contacto: horizontal y a la izquierda */
   .contact-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4pt 20pt;
     font-family: "IBM Plex Mono", monospace;
-    font-size: 8.5pt;
-    text-align: right;
-    gap: 3pt;
+    font-size: 9pt;
+    text-align: left;
     color: #333;
   }
-  .contact-list span { color: #666; }
+  .contact-list span { color: #555; }
 
-  /* Nota final automática */
+  /* Nota al pie */
   .footer::after {
     content: "Referencias disponibles a solicitud del empleador.";
     display: block;
     margin-top: 8pt;
-    font-size: 8pt;
+    font-size: 7.5pt;
     color: #999;
     font-style: italic;
     border-top: 0.5pt solid #e0e0e0;
-    padding-top: 5pt;
+    padding-top: 4pt;
   }
 }
