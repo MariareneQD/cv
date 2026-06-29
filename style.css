@@ -9,8 +9,8 @@
   --ink-faint:  #7C8A96;
   --line:       #C7D0D6;
   --line-soft:  #DAE0E4;
-  --accent:     #1F6F8B;   /* steel teal - circuit blue */
-  --accent-2:   #C0542F;   /* copper / rust - warm contrast */
+  --accent:     #1F6F8B;
+  --accent-2:   #C0542F;
   --white:      #FCFDFD;
 
   --font-display: "Space Grotesk", "Inter", sans-serif;
@@ -35,10 +35,8 @@ body{
 }
 
 a{ color: inherit; }
-
 img{ max-width:100%; display:block; }
 
-/* faint blueprint grid behind everything */
 .grid-bg{
   position: fixed;
   inset: 0;
@@ -52,7 +50,7 @@ img{ max-width:100%; display:block; }
 }
 
 /* ============================================================
-   Eyebrow / labels
+   Eyebrow
    ============================================================ */
 .eyebrow{
   font-family: var(--font-mono);
@@ -180,14 +178,12 @@ img{ max-width:100%; display:block; }
   padding: clamp(36px, 6vh, 56px) var(--pad);
   border-top: 1px solid var(--line);
 }
-
 .lede{
   font-size: 1.05rem;
   max-width: 680px;
   color: var(--ink);
   margin:0;
 }
-
 .section-note{
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -196,7 +192,7 @@ img{ max-width:100%; display:block; }
   max-width: 520px;
 }
 
-/* skills */
+/* Skills */
 .skills-grid{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
@@ -232,7 +228,7 @@ img{ max-width:100%; display:block; }
   background: var(--accent);
 }
 
-/* education card */
+/* Education */
 .edu-card{
   display:grid;
   grid-template-columns: 90px 1fr;
@@ -274,9 +270,7 @@ img{ max-width:100%; display:block; }
 .timeline::before{
   content:"";
   position:absolute;
-  left: 6px;
-  top: 6px;
-  bottom: 6px;
+  left: 6px; top: 6px; bottom: 6px;
   width: 1px;
   background: var(--line);
 }
@@ -389,25 +383,6 @@ img{ max-width:100%; display:block; }
 }
 
 /* ============================================================
-   Responsive
-   ============================================================ */
-@media (max-width: 760px){
-  .hero-inner{
-    grid-template-columns: 1fr;
-  }
-  .hero-photo{ order:-1; }
-  .photo-frame{ max-width: 180px; }
-  .skills-grid{ grid-template-columns: 1fr; gap: 24px; }
-  .edu-card{ grid-template-columns: 1fr; gap: 8px; }
-  .footer-inner{ flex-direction: column; align-items: flex-start; }
-  .contact-list{ text-align: left; }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .t-item, .t-bar-fill{ transition: none !important; }
-}
-
-/* ============================================================
    Typewriter banner
    ============================================================ */
 .typewriter-banner{
@@ -418,36 +393,329 @@ img{ max-width:100%; display:block; }
   display: flex;
   justify-content: flex-end;
 }
-
-.typewriter-banner > *{
+.typewriter-banner > span{
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--ink-soft);
   letter-spacing: 0.03em;
+}
+.typewriter-banner{
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+}
+.typewriter-banner > *:not(.tw-prompt):not(.tw-cursor){
+  display:inline;
+}
+/* wrap the whole thing */
+.typewriter-banner::before{
+  content: none;
+}
+/* box around the terminal line */
+.tw-box{
   border: 1px solid var(--line);
   background: var(--white);
   padding: 10px 14px;
-  max-width: 360px;
+  max-width: 420px;
   line-height: 1.5;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
 }
-
 .tw-prompt{
   color: var(--accent);
   user-select: none;
 }
-
 .tw-cursor{
   display: inline-block;
   color: var(--accent-2);
   animation: blink-cur 0.75s step-end infinite;
   margin-left: 1px;
 }
-
 @keyframes blink-cur{
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
 
+/* ============================================================
+   Botón PDF (solo pantalla)
+   ============================================================ */
+.pdf-btn-wrap{
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+}
+.btn-pdf{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  padding: 13px 18px;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-pdf:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
 @media (max-width: 760px){
-  .typewriter-banner > *{ max-width: 100%; }
+  .hero-inner{ grid-template-columns: 1fr; }
+  .hero-photo{ order:-1; }
+  .photo-frame{ max-width: 180px; }
+  .skills-grid{ grid-template-columns: 1fr; gap: 24px; }
+  .edu-card{ grid-template-columns: 1fr; gap: 8px; }
+  .footer-inner{ flex-direction: column; align-items: flex-start; }
+  .contact-list{ text-align: left; }
+  .tw-box{ max-width: 100%; }
+  .pdf-btn-wrap{ bottom: 16px; right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .t-item, .t-bar-fill{ transition: none !important; }
+  .tw-cursor{ animation: none; }
+}
+
+/* ============================================================
+   IMPRESIÓN — CV formal A4
+   ============================================================ */
+@media print {
+
+  /* Ocultar elementos decorativos y de navegación */
+  .grid-bg,
+  .pdf-btn-wrap,
+  .hero-actions,
+  .typewriter-banner,
+  .photo-caption,
+  .corner,
+  .section-note,
+  .fine-print { display: none !important; }
+
+  * { box-shadow: none !important; transition: none !important; animation: none !important; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #fff;
+    color: #111;
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  @page {
+    size: A4 portrait;
+    margin: 16mm 18mm 14mm 18mm;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    padding: 0 0 10pt;
+    border-bottom: 2pt solid #14202B;
+    max-width: 100%;
+    margin: 0 0 8pt;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 88pt;
+    gap: 14pt;
+    align-items: start;
+  }
+  .hero-text h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 4pt;
+    color: #111;
+  }
+  .hero-text .role {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #1F6F8B;
+    margin: 0 0 2pt;
+  }
+  .hero-text .locale {
+    font-size: 9pt;
+    color: #555;
+    font-family: "IBM Plex Mono", monospace;
+    margin: 0;
+  }
+  .hero-text .eyebrow { display: none; }
+
+  .hero-photo { display: flex !important; justify-content: flex-end; }
+  .photo-frame {
+    width: 84pt; height: 84pt;
+    border: 1pt solid #bbb;
+    padding: 3pt;
+    background: #fff;
+  }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* --- Secciones generales --- */
+  .section {
+    max-width: 100%;
+    padding: 7pt 0;
+    border-top: 0.75pt solid #C7D0D6;
+    margin: 0;
+    page-break-inside: avoid;
+  }
+  .eyebrow.accent {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1F6F8B;
+    margin: 0 0 5pt;
+    display: block;
+  }
+  .eyebrow.accent::before { display: none; }
+
+  /* Perfil */
+  .lede { font-size: 10pt; max-width: 100%; margin: 0; }
+
+  /* Habilidades */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10pt;
+  }
+  .skills-col h3 {
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #555;
+    font-family: "IBM Plex Mono", monospace;
+    margin: 0 0 4pt;
+    border-bottom: 0.5pt solid #C7D0D6;
+    padding-bottom: 3pt;
+  }
+  .chip-list { list-style: none; margin: 0; padding: 0; }
+  .chip-list li {
+    font-size: 9.5pt;
+    padding-left: 10pt;
+    position: relative;
+    margin-bottom: 2pt;
+  }
+  .chip-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 5pt;
+    width: 4pt; height: 4pt;
+    background: #1F6F8B;
+  }
+
+  /* Formación */
+  .edu-card {
+    display: grid;
+    grid-template-columns: 42pt 1fr;
+    gap: 10pt;
+    border: 0.75pt solid #C7D0D6;
+    padding: 7pt 10pt;
+    background: #fff;
+  }
+  .edu-date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13pt;
+    font-weight: 600;
+    color: #1F6F8B;
+  }
+  .edu-body h3 { margin: 0 0 2pt; font-size: 10.5pt; }
+  .edu-body p  { margin: 0; font-size: 9.5pt; color: #444; }
+  .edu-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 7.5pt;
+    color: #C0542F;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-top: 3pt;
+  }
+
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline::before { display: none; }
+  .t-item {
+    padding: 4pt 0 4pt 10pt;
+    border-left: 1.5pt solid #1F6F8B;
+    margin-bottom: 4pt;
+    opacity: 1 !important;
+    transform: none !important;
+    page-break-inside: avoid;
+  }
+  .t-item.is-major { border-left-color: #C0542F; }
+  .t-item::before { display: none; }
+  .t-date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 7.5pt;
+    color: #888;
+    margin: 0 0 1pt;
+  }
+  .t-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+  }
+  .t-title { font-size: 9.5pt; font-weight: 600; margin: 0; }
+  .t-hours {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8pt;
+    color: #1F6F8B;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .t-org { font-size: 8.5pt; color: #555; margin: 1pt 0 2pt; }
+  .t-bar-track { display: none; }
+
+  /* Footer contacto */
+  .footer {
+    max-width: 100%;
+    padding: 8pt 0 0;
+    border-top: 0.75pt solid #C7D0D6;
+    margin-top: 4pt;
+    page-break-inside: avoid;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8pt;
+    margin-bottom: 0;
+  }
+  .footer h2 { font-size: 11pt; margin: 2pt 0 0; }
+  .contact-list {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8.5pt;
+    text-align: right;
+    gap: 3pt;
+    color: #333;
+  }
+  .contact-list span { color: #666; }
+
+  /* Nota final automática */
+  .footer::after {
+    content: "Referencias disponibles a solicitud del empleador.";
+    display: block;
+    margin-top: 8pt;
+    font-size: 8pt;
+    color: #999;
+    font-style: italic;
+    border-top: 0.5pt solid #e0e0e0;
+    padding-top: 5pt;
+  }
 }
