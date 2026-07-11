@@ -373,6 +373,9 @@ img{ max-width:100%; display:block; }
 .contact-list a:hover{ color: var(--accent); }
 .contact-list span{ color: var(--ink-faint); }
 
+/* ocultar en pantalla, visible solo en print */
+.cv-print-contact{ display: none; }
+
 .fine-print{
   font-family: var(--font-mono);
   font-size: 11.5px;
@@ -467,235 +470,154 @@ img{ max-width:100%; display:block; }
   .t-item, .t-bar-fill{ transition: none !important; }
   .tw-cursor{ animation: none; }
 }
-
 /* ============================================================
-   IMPRESIÓN — CV dos columnas A4
-   Columna izquierda: oscura  (#14202B) — foto, contacto, habilidades, idiomas
-   Columna derecha:  blanca   (#fff)    — nombre, perfil, formación, trayectoria
+   IMPRESIÓN — CV formal A4
+   Hero: foto izq + nombre al lado + contacto debajo del nombre
    ============================================================ */
 @media print {
 
-  /* Reset general */
-  * { box-sizing: border-box !important; margin: 0; padding: 0;
+  * { box-sizing: border-box !important;
       box-shadow: none !important; transition: none !important; animation: none !important; }
 
   html, body {
-    width: 210mm;
-    height: 297mm;
     background: #fff;
     color: #111;
     font-family: "Inter", Arial, sans-serif;
-    font-size: 9pt;
-    line-height: 1.45;
+    font-size: 9.5pt;
+    line-height: 1.5;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    margin: 0; padding: 0;
   }
 
-  @page {
-    size: A4 portrait;
-    margin: 0;
-  }
+  @page { size: A4 portrait; margin: 14mm 16mm 12mm 16mm; }
 
-  /* ── Ocultar todo elemento de la web que no se imprime ── */
+  /* Ocultar elementos solo de pantalla */
   .grid-bg, .pdf-btn-wrap, .hero-actions, .typewriter-banner,
   .photo-caption, .corner, .section-note, .fine-print,
-  .footer h2, .footer > .footer-inner > div:first-child { display: none !important; }
+  .footer h2, .footer-inner > div:first-child { display: none !important; }
 
-  /* ── Wrapper principal: dos columnas que llenan la página ── */
-  body::before {
-    content: "";
-    display: block;
-    position: fixed;
-    top: 0; left: 0;
-    width: 68mm;
-    height: 297mm;
-    background: #14202B;
-    z-index: 0;
+  /* ── HERO: foto izq + nombre y contacto al lado ── */
+  .hero {
+    padding: 0 0 10pt;
+    border-bottom: 2pt solid #14202B;
+    margin-bottom: 10pt;
+    max-width: 100%;
   }
 
-  /* ── Resetear layouts de pantalla ── */
-  .hero, main, .footer { all: unset; display: block; }
-
-  /* ── Contenedor raíz del CV ── */
-  body {
+  .hero-inner {
     display: grid;
-    grid-template-columns: 68mm 1fr;
-    grid-template-rows: auto;
-    min-height: 297mm;
-  }
-
-  /* ===========================================
-     COLUMNA IZQUIERDA OSCURA
-     Agrupa: hero-photo  +  contacto  +  habilidades  +  idiomas
-     =========================================== */
-
-  /* El header ocupa la columna izquierda */
-  header.hero {
-    grid-column: 1;
-    grid-row: 1 / 99;          /* se extiende por todas las filas */
-    background: #14202B;
-    color: #fff;
-    padding: 20pt 14pt 14pt;
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 80pt 1fr;
+    gap: 14pt;
     align-items: center;
-    gap: 0;
   }
 
-  /* Foto circular */
-  .hero-inner { all: unset; display: contents; }
-  .hero-text  { display: none; }           /* nombre va en la col. derecha */
-
+  /* Foto — izquierda, cuadrada con borde */
   .hero-photo {
     display: flex !important;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    margin-bottom: 14pt;
+    order: 0;
   }
   .photo-frame {
-    width: 88pt;
-    height: 88pt;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2.5pt solid #1F6F8B;
-    padding: 0;
-    background: #1a2e3d;
+    width: 76pt;
+    height: 76pt;
+    border: 1.5pt solid #14202B;
+    padding: 3pt;
+    background: #fff;
   }
   .photo-frame img {
     width: 100%; height: 100%;
     object-fit: cover;
-    border-radius: 50%;
   }
 
-  /* Etiquetas de sección col. izquierda */
-  .cv-left-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #1F6F8B;
-    border-bottom: 0.75pt solid #1F6F8B;
-    padding-bottom: 3pt;
-    margin: 10pt 0 6pt;
-    width: 100%;
-  }
-
-  /* Sección contacto dentro del header (la movemos con JS ya no,
-     la mostramos dentro del footer reubicado) */
-  .footer {
-    grid-column: 1;
-    background: #14202B;
-    color: #eee;
-    padding: 0 14pt 14pt;
-  }
-  .footer-inner {
-    all: unset;
-    display: block;
-  }
-  /* Ocultar "¿Conversamos?" en print */
-  .footer-inner > div:first-child { display: none !important; }
-
-  /* Label CONTACTO */
-  .footer-inner::before {
-    content: "Contacto";
-    display: block;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #1F6F8B;
-    border-bottom: 0.75pt solid #1F6F8B;
-    padding-bottom: 3pt;
-    margin-bottom: 6pt;
-  }
-
-  .contact-list {
+  /* Texto hero — derecha: eyebrow oculto, nombre grande, cargo, contacto */
+  .hero-text {
+    order: 1;
     display: flex;
     flex-direction: column;
-    gap: 4pt;
-    font-family: "Inter", sans-serif;
-    font-size: 8.5pt;
-    text-align: left;
-    color: #cdd5dc;
+    gap: 0;
   }
-  .contact-list a { color: #cdd5dc; text-decoration: none; }
-  .contact-list span { color: #9aabb8; }
+  .hero-text .eyebrow { display: none; }
 
-  /* ===========================================
-     COLUMNA DERECHA BLANCA
-     main ocupa col 2, filas 1..N
-     =========================================== */
-  main {
-    grid-column: 2;
-    grid-row: 1;
-    background: #fff;
-    padding: 20pt 16pt 14pt;
-    color: #111;
-  }
-
-  /* Nombre y cargo — van arriba en la columna derecha */
-  main::before {
-    content: attr(data-nombre);   /* se inyecta desde JS — ver nota abajo */
-    display: block;
-  }
-
-  /* Bloque de nombre fijo (lo pintamos con CSS sin JS) */
-  .cv-print-header {
-    margin-bottom: 10pt;
-    padding-bottom: 8pt;
-    border-bottom: 2pt solid #14202B;
-  }
-  .cv-print-header h1 {
+  .hero-text h1 {
     font-family: "Space Grotesk", "Inter", sans-serif;
-    font-size: 20pt;
+    font-size: 18pt;
     font-weight: 700;
     color: #14202B;
     line-height: 1.1;
-    text-transform: uppercase;
     margin: 0 0 3pt;
+    text-transform: uppercase;
   }
-  .cv-print-header .role {
+
+  .hero-text .role {
     font-size: 9.5pt;
     font-weight: 600;
     color: #1F6F8B;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    margin: 0 0 6pt;
   }
 
-  /* Secciones de la columna derecha */
-  .section {
-    all: unset;
+  .hero-text .locale { display: none; }
+
+  /* Contacto pegado al nombre dentro del hero */
+  .hero-text::after {
+    content: "";
     display: block;
-    margin-bottom: 8pt;
+    height: 0.75pt;
+    background: #C7D0D6;
+    margin: 4pt 0;
+  }
+
+  /* Bloque contacto — se mueve visualmente dentro del hero via CSS print */
+  /* El footer real se oculta y el contacto se muestra en el hero */
+  .footer { display: none !important; }
+
+  /* Inyectamos los datos de contacto como pseudo-elemento del hero-text */
+  /* Nota: los datos reales vienen del HTML via .cv-print-contact */
+  .cv-print-contact {
+    display: flex !important;
+    flex-direction: column;
+    gap: 2pt;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8pt;
+    color: #4A5A68;
+  }
+  .cv-print-contact a { color: #4A5A68; text-decoration: none; }
+
+  /* cv-print-header oculto en pantalla, visible en print */
+  .cv-print-header { display: none !important; }
+
+  /* ── MAIN: secciones normales una columna ── */
+  main { max-width: 100%; padding: 0; margin: 0; }
+
+  .section {
+    padding: 6pt 0;
+    border-top: 0.75pt solid #C7D0D6;
+    margin: 0 0 2pt;
     page-break-inside: avoid;
+    max-width: 100%;
   }
 
   .eyebrow.accent {
     font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    letter-spacing: 0.14em;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #14202B;
-    border-bottom: 1pt solid #14202B;
-    padding-bottom: 2pt;
-    margin-bottom: 5pt;
+    color: #1F6F8B;
+    margin: 0 0 5pt;
     display: block;
   }
   .eyebrow.accent::before { display: none; }
 
-  /* Perfil */
-  .lede { font-size: 9pt; color: #222; line-height: 1.5; }
+  .lede { font-size: 9pt; color: #222; max-width: 100%; margin: 0; }
 
-  /* Habilidades — 3 columnas compactas */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6pt;
-  }
+  /* Habilidades */
+  .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8pt; }
   .skills-col h3 {
     font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
+    font-size: 7.5pt;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: #555;
@@ -703,98 +625,55 @@ img{ max-width:100%; display:block; }
     border-bottom: 0.5pt solid #C7D0D6;
     padding-bottom: 2pt;
   }
-  .chip-list { list-style: none; }
-  .chip-list li {
-    font-size: 8.5pt;
-    padding-left: 8pt;
-    position: relative;
-    margin-bottom: 1.5pt;
-  }
+  .chip-list { list-style: none; margin: 0; padding: 0; }
+  .chip-list li { font-size: 8.5pt; padding-left: 9pt; position: relative; margin-bottom: 1.5pt; }
   .chip-list li::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 4.5pt;
-    width: 3.5pt; height: 3.5pt;
-    background: #1F6F8B;
+    content: ""; position: absolute; left: 0; top: 4pt;
+    width: 3.5pt; height: 3.5pt; background: #1F6F8B;
   }
 
   /* Formación */
   .edu-card {
-    all: unset;
     display: grid;
-    grid-template-columns: 32pt 1fr;
-    gap: 6pt;
-    border-left: 2pt solid #1F6F8B;
-    padding-left: 7pt;
+    grid-template-columns: 36pt 1fr;
+    gap: 8pt;
+    border: 0.75pt solid #C7D0D6;
+    padding: 6pt 9pt;
+    background: #fff;
   }
-  .edu-date {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11pt;
-    font-weight: 700;
-    color: #1F6F8B;
-    line-height: 1;
-    padding-top: 1pt;
-  }
-  .edu-body h3 { font-size: 9.5pt; font-weight: 700; margin-bottom: 1pt; }
-  .edu-body p  { font-size: 8.5pt; color: #444; }
+  .edu-date { font-family: "IBM Plex Mono", monospace; font-size: 12pt; font-weight: 700; color: #1F6F8B; }
+  .edu-body h3 { font-size: 9.5pt; font-weight: 700; margin: 0 0 2pt; }
+  .edu-body p  { font-size: 8.5pt; color: #444; margin: 0; }
   .edu-tag {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    color: #C0542F;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display: block;
-    margin-top: 2pt;
+    font-family: "IBM Plex Mono", monospace; font-size: 7pt;
+    color: #C0542F; text-transform: uppercase; letter-spacing: 0.05em;
+    display: block; margin-top: 2pt;
   }
 
   /* Timeline */
-  .timeline { list-style: none; }
+  .timeline { list-style: none; margin: 0; padding: 0; }
   .timeline::before { display: none; }
   .t-item {
-    all: unset;
-    display: block;
-    padding: 3pt 0 3pt 8pt;
+    padding: 3pt 0 3pt 9pt;
     border-left: 1.5pt solid #1F6F8B;
     margin-bottom: 4pt;
     page-break-inside: avoid;
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: 1 !important; transform: none !important;
   }
   .t-item.is-major { border-left-color: #C0542F; }
   .t-item::before { display: none; }
-  .t-date {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    color: #888;
-    margin-bottom: 1pt;
-    display: block;
-  }
-  .t-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 6pt;
-  }
-  .t-title { font-size: 9pt; font-weight: 700; }
-  .t-hours {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7.5pt;
-    color: #1F6F8B;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .t-org { font-size: 8pt; color: #555; margin-top: 1pt; display: block; }
+  .t-date { font-family: "IBM Plex Mono", monospace; font-size: 7pt; color: #888; display: block; margin-bottom: 1pt; }
+  .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6pt; }
+  .t-title { font-size: 9pt; font-weight: 700; margin: 0; }
+  .t-hours { font-family: "IBM Plex Mono", monospace; font-size: 7.5pt; color: #1F6F8B; white-space: nowrap; flex-shrink: 0; }
+  .t-org { font-size: 8pt; color: #555; margin: 1pt 0 0; display: block; }
   .t-bar-track { display: none; }
 
-  /* Nota final */
+  /* Nota al pie */
   main::after {
     content: "Referencias disponibles a solicitud del empleador.";
-    display: block;
-    margin-top: 10pt;
-    font-size: 7.5pt;
-    color: #aaa;
-    font-style: italic;
-    border-top: 0.5pt solid #ddd;
-    padding-top: 4pt;
+    display: block; margin-top: 10pt; font-size: 7.5pt;
+    color: #aaa; font-style: italic;
+    border-top: 0.5pt solid #ddd; padding-top: 4pt;
   }
 }
