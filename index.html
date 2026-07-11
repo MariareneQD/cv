@@ -41,6 +41,12 @@
 
 <main>
 
+  <!-- Solo visible en PDF: nombre y cargo en columna derecha -->
+  <div class="cv-print-header">
+    <h1>Maria Rene Quispe Condori</h1>
+    <p class="role">Técnico Superior en Informática Industrial</p>
+  </div>
+
   <section class="section" id="perfil">
     <p class="eyebrow accent">Perfil profesional</p>
     <p class="lede">
@@ -104,14 +110,15 @@
       Ordenado de forma cronológica. La barra de cada registro indica la carga horaria
       académica certificada.
     </p>
+
     <ol class="timeline" id="timeline-list">
-      <!-- items injected by script.js -->
+      <!-- items injected by data below, see static fallback -->
     </ol>
   </section>
 
 </main>
 
-<!-- Typewriter banner -->
+<!-- BLOQUE TYPEWRITER — esquina inferior derecha -->
 <div class="typewriter-banner">
   <span class="tw-prompt">$ </span><span class="tw-text" id="tw-text"></span><span class="tw-cursor" id="tw-cursor">▮</span>
 </div>
@@ -131,17 +138,7 @@
   <p class="fine-print">Maria Rene Quispe Condori — Técnico Superior en Informática Industrial</p>
 </footer>
 
-<!-- Botón PDF flotante (solo pantalla, se oculta al imprimir) -->
-<div class="pdf-btn-wrap">
-  <button class="btn-pdf" onclick="window.print()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 17V3M12 17l-4-4M12 17l4-4"/>
-      <rect x="3" y="19" width="18" height="2" rx="1"/>
-    </svg>
-    Descargar CV en PDF
-  </button>
-</div>
-
 <script src="script.js"></script>
+
 </body>
 </html>
