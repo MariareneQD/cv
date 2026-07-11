@@ -34,7 +34,7 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
-a{ color: inherit; }
+a{ color: inherit; text-decoration: none; }
 img{ max-width:100%; display:block; }
 
 .grid-bg{
@@ -74,7 +74,7 @@ img{ max-width:100%; display:block; }
 }
 
 /* ============================================================
-   Hero
+   Hero — foto izquierda, nombre y contacto derecha
    ============================================================ */
 .hero{
   padding: clamp(56px, 10vh, 96px) var(--pad) clamp(40px, 8vh, 72px);
@@ -83,53 +83,10 @@ img{ max-width:100%; display:block; }
 }
 .hero-inner{
   display:grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: 0.6fr 1fr;
   gap: clamp(32px, 6vw, 64px);
   align-items: center;
 }
-.hero-text h1{
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  margin: 0 0 18px;
-}
-.role{
-  font-size: 1.15rem;
-  font-weight: 500;
-  margin: 0 0 6px;
-}
-.locale{
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--ink-soft);
-  margin: 0 0 28px;
-  letter-spacing: 0.03em;
-}
-.hero-actions{
-  display:flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.btn{
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.02em;
-  text-decoration:none;
-  padding: 12px 20px;
-  background: var(--ink);
-  color: var(--white);
-  border: 1px solid var(--ink);
-  transition: transform .15s ease, opacity .15s ease;
-}
-.btn:hover{ transform: translateY(-1px); opacity: .9; }
-.btn-ghost{
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--line);
-}
-.btn-ghost:hover{ border-color: var(--ink); }
 
 .hero-photo{
   display:flex;
@@ -140,11 +97,11 @@ img{ max-width:100%; display:block; }
 .photo-frame{
   position:relative;
   width: 100%;
-  max-width: 260px;
+  max-width: 220px;
   aspect-ratio: 1/1;
   border: 1px solid var(--ink);
   background: var(--white);
-  padding: 8px;
+  padding: 6px;
 }
 .photo-frame img{
   width:100%; height:100%;
@@ -168,6 +125,81 @@ img{ max-width:100%; display:block; }
   letter-spacing: 0.06em;
   margin:0;
 }
+
+/* Texto del hero */
+.hero-text h1{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+}
+.role{
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin: 0 0 4px;
+  color: var(--accent);
+}
+.locale{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 18px;
+  letter-spacing: 0.03em;
+}
+
+/* CONTACTO — visible en pantalla y en print */
+.contact-info{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 14px 0 10px;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 18px;
+}
+.contact-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  transition: color .2s;
+}
+.contact-link:hover{ color: var(--accent); }
+.contact-link svg{
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: var(--ink-faint);
+}
+.contact-link.location{ color: var(--ink-faint); }
+
+.hero-actions{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-decoration:none;
+  padding: 12px 20px;
+  background: var(--ink);
+  color: var(--white);
+  border: 1px solid var(--ink);
+  transition: transform .15s ease, opacity .15s ease;
+}
+.btn:hover{ transform: translateY(-1px); opacity: .9; }
+.btn-ghost{
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover{ border-color: var(--ink); }
 
 /* ============================================================
    Sections
@@ -367,14 +399,10 @@ img{ max-width:100%; display:block; }
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 14px;
-  text-align: right;
 }
 .contact-list a{ text-decoration: none; }
 .contact-list a:hover{ color: var(--accent); }
 .contact-list span{ color: var(--ink-faint); }
-
-/* ocultar en pantalla, visible solo en print */
-.cv-print-contact{ display: none; }
 
 .fine-print{
   font-family: var(--font-mono);
@@ -452,12 +480,23 @@ img{ max-width:100%; display:block; }
 }
 
 /* ============================================================
+   Bloque oculto en pantalla, visible solo en print
+   ============================================================ */
+.cv-print-contact{
+  display: none;
+}
+
+/* ============================================================
    Responsive
    ============================================================ */
 @media (max-width: 760px){
-  .hero-inner{ grid-template-columns: 1fr; }
+  .hero-inner{
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
   .hero-photo{ order:-1; }
-  .photo-frame{ max-width: 180px; }
+  .photo-frame{ max-width: 160px; }
+  .contact-info{ flex-direction: column; gap: 6px; }
   .skills-grid{ grid-template-columns: 1fr; gap: 24px; }
   .edu-card{ grid-template-columns: 1fr; gap: 8px; }
   .footer-inner{ flex-direction: column; align-items: flex-start; }
@@ -470,9 +509,9 @@ img{ max-width:100%; display:block; }
   .t-item, .t-bar-fill{ transition: none !important; }
   .tw-cursor{ animation: none; }
 }
+
 /* ============================================================
    IMPRESIÓN — CV formal A4
-   Hero: foto izq + nombre al lado + contacto debajo del nombre
    ============================================================ */
 @media print {
 
@@ -490,29 +529,28 @@ img{ max-width:100%; display:block; }
     margin: 0; padding: 0;
   }
 
-  @page { size: A4 portrait; margin: 14mm 16mm 12mm 16mm; }
+  @page { size: A4 portrait; margin: 12mm 14mm 10mm 14mm; }
 
   /* Ocultar elementos solo de pantalla */
   .grid-bg, .pdf-btn-wrap, .hero-actions, .typewriter-banner,
-  .photo-caption, .corner, .section-note, .fine-print,
+  .photo-caption, .corner, .section-note,
   .footer h2, .footer-inner > div:first-child { display: none !important; }
 
   /* ── HERO: foto izq + nombre y contacto al lado ── */
   .hero {
-    padding: 0 0 10pt;
+    padding: 0 0 8pt;
     border-bottom: 2pt solid #14202B;
-    margin-bottom: 10pt;
+    margin-bottom: 8pt;
     max-width: 100%;
   }
 
   .hero-inner {
     display: grid;
-    grid-template-columns: 80pt 1fr;
-    gap: 14pt;
+    grid-template-columns: 72pt 1fr;
+    gap: 12pt;
     align-items: center;
   }
 
-  /* Foto — izquierda, cuadrada con borde */
   .hero-photo {
     display: flex !important;
     justify-content: center;
@@ -520,8 +558,8 @@ img{ max-width:100%; display:block; }
     order: 0;
   }
   .photo-frame {
-    width: 76pt;
-    height: 76pt;
+    width: 68pt;
+    height: 68pt;
     border: 1.5pt solid #14202B;
     padding: 3pt;
     background: #fff;
@@ -531,18 +569,11 @@ img{ max-width:100%; display:block; }
     object-fit: cover;
   }
 
-  /* Texto hero — derecha: eyebrow oculto, nombre grande, cargo, contacto */
-  .hero-text {
-    order: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
   .hero-text .eyebrow { display: none; }
 
   .hero-text h1 {
     font-family: "Space Grotesk", "Inter", sans-serif;
-    font-size: 18pt;
+    font-size: 16pt;
     font-weight: 700;
     color: #14202B;
     line-height: 1.1;
@@ -551,49 +582,42 @@ img{ max-width:100%; display:block; }
   }
 
   .hero-text .role {
-    font-size: 9.5pt;
+    font-size: 9pt;
     font-weight: 600;
     color: #1F6F8B;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin: 0 0 6pt;
+    margin: 0 0 4pt;
   }
 
   .hero-text .locale { display: none; }
 
-  /* Contacto pegado al nombre dentro del hero */
-  .hero-text::after {
-    content: "";
-    display: block;
-    height: 0.75pt;
-    background: #C7D0D6;
-    margin: 4pt 0;
-  }
-
-  /* Bloque contacto — se mueve visualmente dentro del hero via CSS print */
-  /* El footer real se oculta y el contacto se muestra en el hero */
-  .footer { display: none !important; }
-
-  /* Inyectamos los datos de contacto como pseudo-elemento del hero-text */
-  /* Nota: los datos reales vienen del HTML via .cv-print-contact */
-  .cv-print-contact {
+  /* Contacto en print — usamos el bloque .contact-info que ya existe */
+  .contact-info {
     display: flex !important;
-    flex-direction: column;
-    gap: 2pt;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 8pt;
-    color: #4A5A68;
+    flex-wrap: wrap;
+    gap: 2pt 12pt;
+    padding: 4pt 0 0;
+    border-top: none;
+    border-bottom: 0.75pt solid #C7D0D6;
+    margin-bottom: 0;
   }
-  .cv-print-contact a { color: #4A5A68; text-decoration: none; }
+  .contact-link {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 7.5pt;
+    color: #4A5A68;
+    gap: 4px;
+  }
+  .contact-link svg { display: none; }
+  .contact-link.location { color: #4A5A68; }
 
-  /* cv-print-header oculto en pantalla, visible en print */
-  .cv-print-header { display: none !important; }
+  .cv-print-contact { display: none !important; }
 
-  /* ── MAIN: secciones normales una columna ── */
+  /* ── MAIN ── */
   main { max-width: 100%; padding: 0; margin: 0; }
 
   .section {
-    padding: 6pt 0;
+    padding: 5pt 0;
     border-top: 0.75pt solid #C7D0D6;
     margin: 0 0 2pt;
     page-break-inside: avoid;
@@ -606,46 +630,46 @@ img{ max-width:100%; display:block; }
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #1F6F8B;
-    margin: 0 0 5pt;
+    margin: 0 0 4pt;
     display: block;
   }
   .eyebrow.accent::before { display: none; }
 
-  .lede { font-size: 9pt; color: #222; max-width: 100%; margin: 0; }
+  .lede { font-size: 8.5pt; color: #222; max-width: 100%; margin: 0; }
 
   /* Habilidades */
-  .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8pt; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6pt; }
   .skills-col h3 {
     font-family: "IBM Plex Mono", monospace;
-    font-size: 7.5pt;
+    font-size: 7pt;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: #555;
-    margin: 0 0 3pt;
+    margin: 0 0 2pt;
     border-bottom: 0.5pt solid #C7D0D6;
     padding-bottom: 2pt;
   }
   .chip-list { list-style: none; margin: 0; padding: 0; }
-  .chip-list li { font-size: 8.5pt; padding-left: 9pt; position: relative; margin-bottom: 1.5pt; }
+  .chip-list li { font-size: 8pt; padding-left: 8pt; position: relative; margin-bottom: 1pt; }
   .chip-list li::before {
-    content: ""; position: absolute; left: 0; top: 4pt;
-    width: 3.5pt; height: 3.5pt; background: #1F6F8B;
+    content: ""; position: absolute; left: 0; top: 3.5pt;
+    width: 3pt; height: 3pt; background: #1F6F8B;
   }
 
   /* Formación */
   .edu-card {
     display: grid;
-    grid-template-columns: 36pt 1fr;
-    gap: 8pt;
+    grid-template-columns: 32pt 1fr;
+    gap: 6pt;
     border: 0.75pt solid #C7D0D6;
-    padding: 6pt 9pt;
+    padding: 5pt 8pt;
     background: #fff;
   }
-  .edu-date { font-family: "IBM Plex Mono", monospace; font-size: 12pt; font-weight: 700; color: #1F6F8B; }
-  .edu-body h3 { font-size: 9.5pt; font-weight: 700; margin: 0 0 2pt; }
-  .edu-body p  { font-size: 8.5pt; color: #444; margin: 0; }
+  .edu-date { font-family: "IBM Plex Mono", monospace; font-size: 10pt; font-weight: 700; color: #1F6F8B; }
+  .edu-body h3 { font-size: 9pt; font-weight: 700; margin: 0 0 2pt; }
+  .edu-body p  { font-size: 8pt; color: #444; margin: 0; }
   .edu-tag {
-    font-family: "IBM Plex Mono", monospace; font-size: 7pt;
+    font-family: "IBM Plex Mono", monospace; font-size: 6.5pt;
     color: #C0542F; text-transform: uppercase; letter-spacing: 0.05em;
     display: block; margin-top: 2pt;
   }
@@ -654,25 +678,47 @@ img{ max-width:100%; display:block; }
   .timeline { list-style: none; margin: 0; padding: 0; }
   .timeline::before { display: none; }
   .t-item {
-    padding: 3pt 0 3pt 9pt;
+    padding: 2pt 0 2pt 8pt;
     border-left: 1.5pt solid #1F6F8B;
-    margin-bottom: 4pt;
+    margin-bottom: 3pt;
     page-break-inside: avoid;
     opacity: 1 !important; transform: none !important;
   }
   .t-item.is-major { border-left-color: #C0542F; }
   .t-item::before { display: none; }
-  .t-date { font-family: "IBM Plex Mono", monospace; font-size: 7pt; color: #888; display: block; margin-bottom: 1pt; }
-  .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6pt; }
-  .t-title { font-size: 9pt; font-weight: 700; margin: 0; }
-  .t-hours { font-family: "IBM Plex Mono", monospace; font-size: 7.5pt; color: #1F6F8B; white-space: nowrap; flex-shrink: 0; }
-  .t-org { font-size: 8pt; color: #555; margin: 1pt 0 0; display: block; }
+  .t-date { font-family: "IBM Plex Mono", monospace; font-size: 6.5pt; color: #888; display: block; margin-bottom: 1pt; }
+  .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4pt; }
+  .t-title { font-size: 8.5pt; font-weight: 700; margin: 0; }
+  .t-hours { font-family: "IBM Plex Mono", monospace; font-size: 7pt; color: #1F6F8B; white-space: nowrap; flex-shrink: 0; }
+  .t-org { font-size: 7.5pt; color: #555; margin: 1pt 0 0; display: block; }
   .t-bar-track { display: none; }
 
-  /* Nota al pie */
+  /* Footer en print */
+  .footer {
+    padding: 4pt 0 0;
+    border-top: 0.75pt solid #C7D0D6;
+    margin-top: 6pt;
+    max-width: 100%;
+  }
+  .footer-inner { margin-bottom: 4pt; }
+  .footer h2 { display: none; }
+  .contact-list span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 7pt;
+    color: #888;
+  }
+
+  .fine-print {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 6.5pt;
+    color: #aaa;
+    border-top: 0.5pt solid #ddd;
+    padding-top: 4pt;
+  }
+
   main::after {
     content: "Referencias disponibles a solicitud del empleador.";
-    display: block; margin-top: 10pt; font-size: 7.5pt;
+    display: block; margin-top: 6pt; font-size: 7pt;
     color: #aaa; font-style: italic;
     border-top: 0.5pt solid #ddd; padding-top: 4pt;
   }
