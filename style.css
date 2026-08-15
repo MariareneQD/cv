@@ -1,17 +1,17 @@
 /* ============================================================
    Tokens
    ============================================================ */
-:root{
-  --paper:      #EEF1F3;
-  --paper-2:    #E4E9EC;
-  --ink:        #14202B;
-  --ink-soft:   #4A5A68;
-  --ink-faint:  #7C8A96;
-  --line:       #C7D0D6;
-  --line-soft:  #DAE0E4;
-  --accent:     #1F6F8B;
-  --accent-2:   #C0542F;
-  --white:      #FCFDFD;
+:root {
+  --paper:     #EEF1F3;
+  --paper-2:   #E4E9EC;
+  --ink:       #14202B;
+  --ink-soft:  #4A5A68;
+  --ink-faint: #7C8A96;
+  --line:      #C7D0D6;
+  --line-soft: #DAE0E4;
+  --accent:    #1F6F8B;
+  --accent-2:  #C0542F;
+  --white:     #FCFDFD;
 
   --font-display: "Space Grotesk", "Inter", sans-serif;
   --font-body:    "Inter", -apple-system, sans-serif;
@@ -21,11 +21,11 @@
   --pad: clamp(20px, 5vw, 56px);
 }
 
-*{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-body{
-  margin:0;
+body {
+  margin: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
@@ -34,10 +34,11 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
-a{ color: inherit; text-decoration: none; }
-img{ max-width:100%; display:block; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
 
-.grid-bg{
+/* ── Grid de fondo ── */
+.grid-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -52,7 +53,7 @@ img{ max-width:100%; display:block; }
 /* ============================================================
    Eyebrow
    ============================================================ */
-.eyebrow{
+.eyebrow {
   font-family: var(--font-mono);
   font-size: 12.5px;
   letter-spacing: 0.12em;
@@ -60,232 +61,225 @@ img{ max-width:100%; display:block; }
   color: var(--ink-faint);
   margin: 0 0 14px;
 }
-.eyebrow.accent{
+.eyebrow.accent {
   color: var(--accent);
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
-.eyebrow.accent::before{
-  content:"";
+.eyebrow.accent::before {
+  content: "";
   width: 7px; height: 7px;
   background: var(--accent);
-  display:inline-block;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 /* ============================================================
-   Hero — foto izquierda, nombre y contacto derecha
+   Hero
    ============================================================ */
-.hero{
-  padding: clamp(56px, 10vh, 96px) var(--pad) clamp(40px, 8vh, 72px);
+.hero {
+  padding: clamp(48px, 9vh, 88px) var(--pad) clamp(36px, 7vh, 64px);
   max-width: var(--max-w);
   margin: 0 auto;
 }
-.hero-inner{
-  display:grid;
-  grid-template-columns: 0.6fr 1fr;
-  gap: clamp(32px, 6vw, 64px);
+.hero-inner {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: clamp(28px, 5vw, 56px);
   align-items: center;
 }
 
-.hero-photo{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+/* Foto */
+.hero-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
-.photo-frame{
-  position:relative;
+.photo-frame {
+  position: relative;
   width: 100%;
   max-width: 220px;
   aspect-ratio: 1/1;
   border: 1px solid var(--ink);
   background: var(--white);
-  padding: 6px;
+  padding: 7px;
 }
-.photo-frame img{
-  width:100%; height:100%;
+.photo-frame img {
+  width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(0.08) contrast(1.03);
+  filter: grayscale(0.06) contrast(1.03);
 }
-.corner{
-  position:absolute;
+.corner {
+  position: absolute;
   width: 12px; height: 12px;
   border: 1.5px solid var(--accent-2);
 }
-.corner.tl{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
-.corner.tr{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
-.corner.bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
-.corner.br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
-
-.photo-caption{
+.corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.photo-caption {
   font-family: var(--font-mono);
   font-size: 11.5px;
   color: var(--ink-faint);
   letter-spacing: 0.06em;
-  margin:0;
+  margin: 0;
 }
 
-/* Texto del hero */
-.hero-text h1{
+/* Texto hero */
+.hero-text h1 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
   line-height: 1.05;
   letter-spacing: -0.01em;
-  margin: 0 0 10px;
+  margin: 0 0 14px;
 }
-.role{
-  font-size: 1.15rem;
+.role {
+  font-size: 1.1rem;
   font-weight: 500;
-  margin: 0 0 4px;
-  color: var(--accent);
+  margin: 0 0 5px;
 }
-.locale{
+.locale {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--ink-soft);
   margin: 0 0 18px;
   letter-spacing: 0.03em;
 }
 
-/* CONTACTO — visible en pantalla y en print */
-.contact-info{
+/* Contact info en el hero */
+.contact-info {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  padding: 14px 0 10px;
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-  margin-bottom: 18px;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 24px;
 }
-.contact-link{
-  display: inline-flex;
+.contact-link {
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--ink-soft);
-  transition: color .2s;
+  text-decoration: none;
+  letter-spacing: 0.01em;
 }
-.contact-link:hover{ color: var(--accent); }
-.contact-link svg{
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  stroke: var(--ink-faint);
-}
-.contact-link.location{ color: var(--ink-faint); }
+.contact-link:hover { color: var(--accent); }
+.contact-link svg { flex-shrink: 0; color: var(--accent); }
+.contact-link.location { cursor: default; }
 
-.hero-actions{
-  display:flex;
+.hero-actions {
+  display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
-.btn{
+.btn {
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.02em;
-  text-decoration:none;
-  padding: 12px 20px;
+  text-decoration: none;
+  padding: 11px 19px;
   background: var(--ink);
   color: var(--white);
   border: 1px solid var(--ink);
-  transition: transform .15s ease, opacity .15s ease;
+  transition: transform .15s, opacity .15s;
 }
-.btn:hover{ transform: translateY(-1px); opacity: .9; }
-.btn-ghost{
+.btn:hover { transform: translateY(-1px); opacity: .9; }
+.btn-ghost {
   background: transparent;
   color: var(--ink);
   border: 1px solid var(--line);
 }
-.btn-ghost:hover{ border-color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); }
 
 /* ============================================================
    Sections
    ============================================================ */
-.section{
+.section {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: clamp(36px, 6vh, 56px) var(--pad);
+  padding: clamp(32px, 6vh, 52px) var(--pad);
   border-top: 1px solid var(--line);
 }
-.lede{
-  font-size: 1.05rem;
+.lede {
+  font-size: 1.04rem;
   max-width: 680px;
   color: var(--ink);
-  margin:0;
+  margin: 0;
 }
-.section-note{
+.section-note {
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--ink-faint);
-  margin: -4px 0 28px;
+  margin: -4px 0 26px;
   max-width: 520px;
 }
 
 /* Skills */
-.skills-grid{
-  display:grid;
+.skills-grid {
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 28px;
 }
-.skills-col h3{
+.skills-col h3 {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12.5px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ink-soft);
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 10px;
+  padding-bottom: 9px;
 }
-.chip-list{
-  list-style:none;
-  margin:0; padding:0;
-  display:flex;
-  flex-direction:column;
-  gap: 8px;
+.chip-list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
-.chip-list li{
-  font-size: 0.95rem;
-  padding-left: 14px;
-  position:relative;
+.chip-list li {
+  font-size: 0.94rem;
+  padding-left: 13px;
+  position: relative;
 }
-.chip-list li::before{
-  content:"";
-  position:absolute;
-  left:0; top: 9px;
-  width:5px; height:5px;
+.chip-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 8px;
+  width: 5px; height: 5px;
   background: var(--accent);
 }
 
 /* Education */
-.edu-card{
-  display:grid;
-  grid-template-columns: 90px 1fr;
-  gap: 24px;
+.edu-card {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 22px;
   border: 1px solid var(--line);
   background: var(--white);
-  padding: 22px 24px;
+  padding: 20px 22px;
 }
-.edu-date{
+.edu-date {
   font-family: var(--font-mono);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 500;
   color: var(--accent);
 }
-.edu-body h3{
-  margin: 0 0 6px;
+.edu-body h3 {
+  margin: 0 0 5px;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.12rem;
 }
-.edu-body p{ margin: 2px 0; color: var(--ink-soft); font-size: 0.94rem; }
-.edu-tag{
-  display:inline-block;
-  margin-top:8px;
+.edu-body p { margin: 2px 0; color: var(--ink-soft); font-size: 0.93rem; }
+.edu-tag {
+  display: inline-block;
+  margin-top: 7px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent-2);
@@ -294,158 +288,155 @@ img{ max-width:100%; display:block; }
 /* ============================================================
    Timeline
    ============================================================ */
-.timeline{
-  list-style:none;
-  margin:0; padding:0;
-  position:relative;
+.timeline {
+  list-style: none;
+  margin: 0; padding: 0;
+  position: relative;
 }
-.timeline::before{
-  content:"";
-  position:absolute;
+.timeline::before {
+  content: "";
+  position: absolute;
   left: 6px; top: 6px; bottom: 6px;
   width: 1px;
   background: var(--line);
 }
-.t-item{
-  position:relative;
-  padding: 0 0 30px 36px;
+.t-item {
+  position: relative;
+  padding: 0 0 28px 34px;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity .5s ease, transform .5s ease;
 }
-.t-item.is-visible{ opacity: 1; transform: none; }
-.t-item::before{
-  content:"";
-  position:absolute;
+.t-item.is-visible { opacity: 1; transform: none; }
+.t-item::before {
+  content: "";
+  position: absolute;
   left: 0; top: 5px;
   width: 13px; height: 13px;
   background: var(--paper);
   border: 1.5px solid var(--accent);
 }
-.t-item.is-major::before{
+.t-item.is-major::before {
   background: var(--accent-2);
   border-color: var(--accent-2);
 }
-.t-date{
+.t-date {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--ink-faint);
   letter-spacing: 0.04em;
-  margin: 0 0 4px;
+  margin: 0 0 3px;
 }
-.t-head{
-  display:flex;
+.t-head {
+  display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
-.t-title{
+.t-title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 600;
   margin: 0;
 }
-.t-hours{
+.t-hours {
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--accent);
   white-space: nowrap;
 }
-.t-org{
-  margin: 4px 0 10px;
-  font-size: 0.92rem;
+.t-item.is-major .t-hours { color: var(--accent-2); }
+.t-org {
+  margin: 3px 0 9px;
+  font-size: 0.91rem;
   color: var(--ink-soft);
 }
-.t-bar-track{
+.t-bar-track {
   height: 4px;
   background: var(--line-soft);
-  max-width: 320px;
+  max-width: 300px;
 }
-.t-bar-fill{
+.t-bar-fill {
   height: 100%;
   background: var(--accent);
   width: 0%;
   transition: width 1s ease .1s;
 }
-.t-item.is-major .t-bar-fill{ background: var(--accent-2); }
-.t-item.is-visible .t-bar-fill{ width: var(--w); }
+.t-item.is-major .t-bar-fill { background: var(--accent-2); }
+.t-item.is-visible .t-bar-fill { width: var(--w); }
 
 /* ============================================================
    Footer
    ============================================================ */
-.footer{
+.footer {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: clamp(40px, 8vh, 72px) var(--pad) 28px;
+  padding: clamp(36px, 7vh, 64px) var(--pad) 26px;
   border-top: 1px solid var(--line);
 }
-.footer-inner{
-  display:flex;
+.footer-inner {
+  display: flex;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-  gap: 24px;
-  margin-bottom: 40px;
+  gap: 22px;
+  margin-bottom: 36px;
 }
-.footer h2{
+.footer h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
   margin: 4px 0 0;
 }
-.contact-list{
-  display:flex;
-  flex-direction:column;
-  gap: 8px;
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 13.5px;
+  text-align: right;
 }
-.contact-list a{ text-decoration: none; }
-.contact-list a:hover{ color: var(--accent); }
-.contact-list span{ color: var(--ink-faint); }
-
-.fine-print{
+.contact-list a { text-decoration: none; }
+.contact-list a:hover { color: var(--accent); }
+.contact-list span { color: var(--ink-faint); }
+.fine-print {
   font-family: var(--font-mono);
   font-size: 11.5px;
   color: var(--ink-faint);
   border-top: 1px solid var(--line-soft);
-  padding-top: 18px;
+  padding-top: 17px;
   margin: 0;
 }
 
 /* ============================================================
    Typewriter banner
    ============================================================ */
-.typewriter-banner{
-  position: relative;
+.typewriter-banner {
   max-width: var(--max-w);
-  margin: 0 auto clamp(20px, 4vh, 40px);
+  margin: 0 auto clamp(18px, 3vh, 36px);
   padding: 0 var(--pad);
   display: flex;
   justify-content: flex-end;
-}
-.typewriter-banner > *{
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--ink-soft);
   letter-spacing: 0.03em;
+}
+.typewriter-banner > * {
   border: 1px solid var(--line);
   background: var(--white);
   padding: 10px 14px;
-  max-width: 360px;
+  max-width: 430px;
   line-height: 1.5;
 }
-.tw-prompt{
-  color: var(--accent);
-  user-select: none;
-}
-.tw-cursor{
+.tw-prompt { color: var(--accent); user-select: none; }
+.tw-cursor {
   display: inline-block;
   color: var(--accent-2);
   animation: blink-cur 0.75s step-end infinite;
   margin-left: 1px;
 }
-@keyframes blink-cur{
+@keyframes blink-cur {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
@@ -453,20 +444,20 @@ img{ max-width:100%; display:block; }
 /* ============================================================
    Botón PDF (solo pantalla)
    ============================================================ */
-.pdf-btn-wrap{
+.pdf-btn-wrap {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
+  bottom: 26px;
+  right: 26px;
   z-index: 999;
 }
-.btn-pdf{
+.btn-pdf {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 12.5px;
-  letter-spacing: 0.03em;
-  padding: 13px 18px;
+  letter-spacing: 0.02em;
+  padding: 12px 17px;
   background: var(--ink);
   color: var(--white);
   border: none;
@@ -474,252 +465,297 @@ img{ max-width:100%; display:block; }
   box-shadow: 0 4px 16px rgba(0,0,0,0.18);
   transition: transform .15s, box-shadow .15s;
 }
-.btn-pdf:hover{
+.btn-pdf:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.22);
 }
 
 /* ============================================================
-   Bloque oculto en pantalla, visible solo en print
-   ============================================================ */
-.cv-print-contact{
-  display: none;
-}
-
-/* ============================================================
    Responsive
    ============================================================ */
-@media (max-width: 760px){
-  .hero-inner{
+@media (max-width: 700px) {
+  .hero-inner {
     grid-template-columns: 1fr;
-    gap: 24px;
   }
-  .hero-photo{ order:-1; }
-  .photo-frame{ max-width: 160px; }
-  .contact-info{ flex-direction: column; gap: 6px; }
-  .skills-grid{ grid-template-columns: 1fr; gap: 24px; }
-  .edu-card{ grid-template-columns: 1fr; gap: 8px; }
-  .footer-inner{ flex-direction: column; align-items: flex-start; }
-  .contact-list{ text-align: left; }
-  .typewriter-banner > *{ max-width: 100%; }
-  .pdf-btn-wrap{ bottom: 16px; right: 16px; }
+  .hero-photo { order: -1; }
+  .photo-frame { max-width: 160px; }
+  .skills-grid { grid-template-columns: 1fr; gap: 22px; }
+  .edu-card { grid-template-columns: 1fr; gap: 8px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .contact-list { text-align: left; }
+  .typewriter-banner > * { max-width: 100%; }
+  .pdf-btn-wrap { bottom: 14px; right: 14px; }
 }
 
-@media (prefers-reduced-motion: reduce){
-  .t-item, .t-bar-fill{ transition: none !important; }
-  .tw-cursor{ animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .t-item, .t-bar-fill { transition: none !important; }
+  .tw-cursor { animation: none; }
 }
 
 /* ============================================================
-   IMPRESIÓN — CV formal A4
+   IMPRESIÓN — tamaño CARTA, CV formal
    ============================================================ */
 @media print {
 
-  * { box-sizing: border-box !important;
-      box-shadow: none !important; transition: none !important; animation: none !important; }
+  /* ── Ocultar lo decorativo ── */
+  .grid-bg,
+  .pdf-btn-wrap,
+  .hero-actions,
+  .typewriter-banner,
+  .photo-caption,
+  .corner,
+  .section-note,
+  .fine-print,
+  .footer { display: none !important; }
+
+  * {
+    box-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
 
   html, body {
-    background: #fff;
-    color: #111;
-    font-family: "Inter", Arial, sans-serif;
-    font-size: 9.5pt;
-    line-height: 1.5;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #111 !important;
+    font-family: "Inter", Arial, sans-serif !important;
+    font-size: 10pt !important;
+    line-height: 1.45 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    margin: 0; padding: 0;
   }
 
-  @page { size: A4 portrait; margin: 12mm 14mm 10mm 14mm; }
+  a { color: inherit !important; text-decoration: none !important; }
 
-  /* Ocultar elementos solo de pantalla */
-  .grid-bg, .pdf-btn-wrap, .hero-actions, .typewriter-banner,
-  .photo-caption, .corner, .section-note,
-  .footer h2, .footer-inner > div:first-child { display: none !important; }
+  @page {
+    size: letter portrait;
+    margin: 14mm 17mm 14mm 17mm;
+  }
 
-  /* ── HERO: foto izq + nombre y contacto al lado ── */
+  /* ══════════════════════════════════════
+     ENCABEZADO — foto izquierda, texto derecha
+     ══════════════════════════════════════ */
   .hero {
-    padding: 0 0 8pt;
-    border-bottom: 2pt solid #14202B;
-    margin-bottom: 8pt;
-    max-width: 100%;
+    padding: 0 0 10pt !important;
+    border-bottom: 2pt solid #14202B !important;
+    max-width: 100% !important;
+    margin: 0 0 9pt !important;
   }
-
   .hero-inner {
-    display: grid;
-    grid-template-columns: 72pt 1fr;
-    gap: 12pt;
-    align-items: center;
+    display: grid !important;
+    grid-template-columns: 90pt 1fr !important;
+    gap: 14pt !important;
+    align-items: center !important;
   }
 
+  /* Foto a la izquierda */
   .hero-photo {
+    order: 1 !important;
     display: flex !important;
-    justify-content: center;
-    align-items: center;
-    order: 0;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
   }
   .photo-frame {
-    width: 68pt;
-    height: 68pt;
-    border: 1.5pt solid #14202B;
-    padding: 3pt;
-    background: #fff;
+    width: 85pt !important;
+    height: 85pt !important;
+    border: 1pt solid #bbb !important;
+    padding: 3pt !important;
+    background: #fff !important;
+    position: relative !important;
   }
   .photo-frame img {
-    width: 100%; height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
-  .hero-text .eyebrow { display: none; }
+  /* Texto a la derecha */
+  .hero-text {
+    order: 2 !important;
+    text-align: left !important;
+  }
+  .hero-text .eyebrow { display: none !important; }
 
   .hero-text h1 {
-    font-family: "Space Grotesk", "Inter", sans-serif;
-    font-size: 16pt;
-    font-weight: 700;
-    color: #14202B;
-    line-height: 1.1;
-    margin: 0 0 3pt;
-    text-transform: uppercase;
+    font-size: 21pt !important;
+    font-weight: 700 !important;
+    line-height: 1.05 !important;
+    margin: 0 0 3pt !important;
+    color: #111 !important;
+    letter-spacing: -0.01em !important;
   }
-
   .hero-text .role {
-    font-size: 9pt;
-    font-weight: 600;
-    color: #1F6F8B;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin: 0 0 4pt;
+    font-size: 10pt !important;
+    font-weight: 600 !important;
+    color: #1F6F8B !important;
+    margin: 0 0 7pt !important;
   }
+  .hero-text .locale { display: none !important; }
 
-  .hero-text .locale { display: none; }
-
-  /* Contacto en print — usamos el bloque .contact-info que ya existe */
+  /* Datos de contacto en el encabezado */
   .contact-info {
     display: flex !important;
-    flex-wrap: wrap;
-    gap: 2pt 12pt;
-    padding: 4pt 0 0;
-    border-top: none;
-    border-bottom: 0.75pt solid #C7D0D6;
-    margin-bottom: 0;
+    flex-direction: column !important;
+    gap: 3pt !important;
+    margin: 0 !important;
   }
   .contact-link {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7.5pt;
-    color: #4A5A68;
-    gap: 4px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5pt !important;
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 8pt !important;
+    color: #333 !important;
+    letter-spacing: 0.01em !important;
   }
-  .contact-link svg { display: none; }
-  .contact-link.location { color: #4A5A68; }
+  .contact-link svg { width: 9pt !important; height: 9pt !important; color: #1F6F8B !important; }
 
-  .cv-print-contact { display: none !important; }
-
-  /* ── MAIN ── */
-  main { max-width: 100%; padding: 0; margin: 0; }
-
+  /* ══════════════════════════════════════
+     SECCIONES
+     ══════════════════════════════════════ */
   .section {
-    padding: 5pt 0;
-    border-top: 0.75pt solid #C7D0D6;
-    margin: 0 0 2pt;
+    max-width: 100% !important;
+    padding: 7pt 0 5pt !important;
+    border-top: 0.75pt solid #C7D0D6 !important;
+    margin: 0 !important;
     page-break-inside: avoid;
-    max-width: 100%;
   }
-
   .eyebrow.accent {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7.5pt;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #1F6F8B;
-    margin: 0 0 4pt;
-    display: block;
+    display: block !important;
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 7pt !important;
+    letter-spacing: 0.13em !important;
+    text-transform: uppercase !important;
+    color: #1F6F8B !important;
+    margin: 0 0 5pt !important;
+    font-weight: 600 !important;
   }
-  .eyebrow.accent::before { display: none; }
+  .eyebrow.accent::before { display: none !important; }
 
-  .lede { font-size: 8.5pt; color: #222; max-width: 100%; margin: 0; }
+  /* Perfil */
+  .lede {
+    font-size: 9.5pt !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    color: #222 !important;
+    text-align: justify !important;
+  }
 
   /* Habilidades */
-  .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6pt; }
-  .skills-col h3 {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #555;
-    margin: 0 0 2pt;
-    border-bottom: 0.5pt solid #C7D0D6;
-    padding-bottom: 2pt;
+  .skills-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10pt !important;
   }
-  .chip-list { list-style: none; margin: 0; padding: 0; }
-  .chip-list li { font-size: 8pt; padding-left: 8pt; position: relative; margin-bottom: 1pt; }
+  .skills-col h3 {
+    font-size: 7.5pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    color: #666 !important;
+    font-family: "IBM Plex Mono", monospace !important;
+    margin: 0 0 4pt !important;
+    border-bottom: 0.5pt solid #ccc !important;
+    padding-bottom: 2pt !important;
+  }
+  .chip-list { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+  .chip-list li {
+    font-size: 9pt !important;
+    padding-left: 9pt !important;
+    position: relative !important;
+    margin-bottom: 2pt !important;
+    color: #222 !important;
+  }
   .chip-list li::before {
-    content: ""; position: absolute; left: 0; top: 3.5pt;
-    width: 3pt; height: 3pt; background: #1F6F8B;
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important; top: 4.5pt !important;
+    width: 3.5pt !important; height: 3.5pt !important;
+    background: #1F6F8B !important;
   }
 
   /* Formación */
   .edu-card {
-    display: grid;
-    grid-template-columns: 32pt 1fr;
-    gap: 6pt;
-    border: 0.75pt solid #C7D0D6;
-    padding: 5pt 8pt;
-    background: #fff;
+    display: grid !important;
+    grid-template-columns: 38pt 1fr !important;
+    gap: 10pt !important;
+    border: 0.75pt solid #C7D0D6 !important;
+    padding: 7pt 10pt !important;
+    background: #f9f9f9 !important;
   }
-  .edu-date { font-family: "IBM Plex Mono", monospace; font-size: 10pt; font-weight: 700; color: #1F6F8B; }
-  .edu-body h3 { font-size: 9pt; font-weight: 700; margin: 0 0 2pt; }
-  .edu-body p  { font-size: 8pt; color: #444; margin: 0; }
+  .edu-date {
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 14pt !important;
+    font-weight: 700 !important;
+    color: #1F6F8B !important;
+    line-height: 1 !important;
+    padding-top: 1pt !important;
+  }
+  .edu-body h3 { margin: 0 0 2pt !important; font-size: 10pt !important; font-weight: 700 !important; }
+  .edu-body p  { margin: 0 !important; font-size: 9pt !important; color: #444 !important; }
   .edu-tag {
-    font-family: "IBM Plex Mono", monospace; font-size: 6.5pt;
-    color: #C0542F; text-transform: uppercase; letter-spacing: 0.05em;
-    display: block; margin-top: 2pt;
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 7pt !important;
+    color: #C0542F !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    display: block !important;
+    margin-top: 3pt !important;
   }
 
   /* Timeline */
-  .timeline { list-style: none; margin: 0; padding: 0; }
-  .timeline::before { display: none; }
+  .timeline { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+  .timeline::before { display: none !important; }
   .t-item {
-    padding: 2pt 0 2pt 8pt;
-    border-left: 1.5pt solid #1F6F8B;
-    margin-bottom: 3pt;
+    padding: 3pt 0 3pt 8pt !important;
+    border-left: 1.5pt solid #1F6F8B !important;
+    margin-bottom: 4pt !important;
+    opacity: 1 !important;
+    transform: none !important;
     page-break-inside: avoid;
-    opacity: 1 !important; transform: none !important;
   }
-  .t-item.is-major { border-left-color: #C0542F; }
-  .t-item::before { display: none; }
-  .t-date { font-family: "IBM Plex Mono", monospace; font-size: 6.5pt; color: #888; display: block; margin-bottom: 1pt; }
-  .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4pt; }
-  .t-title { font-size: 8.5pt; font-weight: 700; margin: 0; }
-  .t-hours { font-family: "IBM Plex Mono", monospace; font-size: 7pt; color: #1F6F8B; white-space: nowrap; flex-shrink: 0; }
-  .t-org { font-size: 7.5pt; color: #555; margin: 1pt 0 0; display: block; }
-  .t-bar-track { display: none; }
+  .t-item.is-major {
+    border-left-color: #C0542F !important;
+    background: #fafafa !important;
+    padding: 4pt 6pt 4pt 8pt !important;
+  }
+  .t-item::before { display: none !important; }
+  .t-date {
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 7pt !important;
+    color: #999 !important;
+    margin: 0 0 1pt !important;
+  }
+  .t-head {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    gap: 8pt !important;
+  }
+  .t-title { font-size: 9pt !important; font-weight: 600 !important; margin: 0 !important; color: #111 !important; }
+  .t-hours {
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 7.5pt !important;
+    color: #1F6F8B !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  .t-item.is-major .t-hours { color: #C0542F !important; }
+  .t-org { font-size: 8pt !important; color: #666 !important; margin: 1pt 0 0 !important; }
+  .t-bar-track { display: none !important; }
 
-  /* Footer en print */
-  .footer {
-    padding: 4pt 0 0;
-    border-top: 0.75pt solid #C7D0D6;
-    margin-top: 6pt;
-    max-width: 100%;
-  }
-  .footer-inner { margin-bottom: 4pt; }
-  .footer h2 { display: none; }
-  .contact-list span {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 7pt;
-    color: #888;
-  }
-
-  .fine-print {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 6.5pt;
-    color: #aaa;
-    border-top: 0.5pt solid #ddd;
-    padding-top: 4pt;
-  }
-
+  /* ── Pie de página con referencias ── */
   main::after {
-    content: "Referencias disponibles a solicitud del empleador.";
-    display: block; margin-top: 6pt; font-size: 7pt;
-    color: #aaa; font-style: italic;
-    border-top: 0.5pt solid #ddd; padding-top: 4pt;
+    content: "mariarenequispecondori@gmail.com  ·  +591 75874179  ·  El Alto, La Paz, Bolivia\AEferencias disponibles a solicitud del empleador.";
+    white-space: pre;
+    display: block !important;
+    margin-top: 10pt !important;
+    padding-top: 7pt !important;
+    border-top: 0.75pt solid #C7D0D6 !important;
+    font-family: "IBM Plex Mono", monospace !important;
+    font-size: 8pt !important;
+    color: #555 !important;
+    line-height: 1.8 !important;
   }
 }
