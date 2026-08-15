@@ -1,13 +1,12 @@
 // ============================================================
-// Datos de trayectoria — cursos, congresos y práctica laboral
-// Ordenados cronológicamente. `hours` = carga horaria certificada.
-// `major` = hito principal (se resalta en el timeline).
+// Trayectoria — cursos y certificaciones
+// Ordenados cronológicamente. major = hito destacado (color cobre).
 // ============================================================
 const TIMELINE = [
   {
     date: "Octubre 2022",
     title: "Curso de Matemática, Física y Química",
-    org: "Instituto Técnico \u201cSan Silvestre\u201d · R.M. 0262/2022",
+    org: "Instituto Técnico \"San Silvestre\" · R.M. 0262/2022",
     hours: null,
   },
   {
@@ -18,7 +17,7 @@ const TIMELINE = [
   },
   {
     date: "Junio 2023",
-    title: "Taller \u201cSimulador de Microempresa\u201d",
+    title: "Taller \"Simulador de Microempresa\"",
     org: "Instituto Tecnológico Industrial Brasil-Bolivia (ITIBB)",
     hours: 10,
   },
@@ -30,13 +29,13 @@ const TIMELINE = [
   },
   {
     date: "Octubre 2023",
-    title: "I Congreso Internacional en Tecnología y Emprendimiento en Producción Productiva",
+    title: "I Congreso Internacional en Tecnología y Emprendimiento Productivo",
     org: "FDTEUO — Oruro, Bolivia",
     hours: 120,
   },
   {
     date: "Septiembre 2024",
-    title: "Curso de Prevención de Riesgos y Primeros Auxilios en la Industria",
+    title: "Capacitación en Prevención de Riesgos y Primeros Auxilios en la Industria",
     org: "ITIBB",
     hours: 42,
   },
@@ -65,6 +64,13 @@ const TIMELINE = [
     hours: 420,
     major: true,
   },
+  {
+    date: "Jul. 2026",
+    title: "Técnico Auxiliar en Inteligencia Artificial",
+    org: "Confederación Universitaria Boliviana (CUB) · R.M. 125/25",
+    hours: 100,
+    major: true,
+  },
 ];
 
 const MAX_HOURS = Math.max(...TIMELINE.filter(t => t.hours).map(t => t.hours));
@@ -78,7 +84,8 @@ function barWidth(hours) {
 function renderTimeline() {
   const list = document.getElementById("timeline-list");
   if (!list) return;
-  const html = TIMELINE.map(item => {
+
+  list.innerHTML = TIMELINE.map(item => {
     const w = barWidth(item.hours);
     const hoursLabel = item.hours ? `${item.hours} hrs` : "—";
     return `
@@ -96,16 +103,17 @@ function renderTimeline() {
       </li>
     `;
   }).join("");
-  list.innerHTML = html;
 }
 
 function observeTimeline() {
   const items = document.querySelectorAll(".t-item");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   if (reduced || !("IntersectionObserver" in window)) {
     items.forEach(el => el.classList.add("is-visible"));
     return;
   }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -113,46 +121,29 @@ function observeTimeline() {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.2 });
-  items.forEach((el, i) => {
-    setTimeout(() => observer.observe(el), i * 0);
-  });
+  }, { threshold: 0.15 });
+
+  items.forEach(el => observer.observe(el));
 }
 
-function initTypewriter() {
-  const MSG = "Tengo el conocimiento técnico para entender el hardware industrial y la capacidad práctica de usar IA para optimizar sus datos y procesos";
-  const el  = document.getElementById("tw-text");
-  const cur = document.getElementById("tw-cursor");
-  if (!el || !cur) return;
+// ============================================================
+// Typewriter — mensaje debajo del hero
+// ============================================================
+function typewriter() {
+  const el = document.getElementById("tw-text");
+  if (!el) return;
 
+  const msg = "Tengo el conocimiento técnico para entender el hardware industrial y la capacidad práctica de usar IA para optimizar sus datos y procesos.";
   let i = 0;
-  let typing = true;
-  let pauseTicks = 0;
 
   function tick() {
-    if (pauseTicks > 0) {
-      pauseTicks--;
-      setTimeout(tick, 80);
-      return;
-    }
-    if (typing) {
-      if (i < MSG.length) {
-        el.textContent += MSG[i++];
-        setTimeout(tick, 38 + Math.random() * 30);
-      } else {
-        pauseTicks = 28;
-        typing = false;
-        setTimeout(tick, 80);
-      }
+    if (i <= msg.length) {
+      el.textContent = msg.slice(0, i);
+      i++;
+      setTimeout(tick, i === msg.length ? 2000 : 38);
     } else {
-      if (i > 0) {
-        el.textContent = MSG.slice(0, --i);
-        setTimeout(tick, 22);
-      } else {
-        pauseTicks = 18;
-        typing = true;
-        setTimeout(tick, 80);
-      }
+      // reiniciar después de pausa
+      setTimeout(() => { i = 0; tick(); }, 1200);
     }
   }
 
@@ -162,5 +153,5 @@ function initTypewriter() {
 document.addEventListener("DOMContentLoaded", () => {
   renderTimeline();
   observeTimeline();
-  initTypewriter();
+  typewriter();
 });
